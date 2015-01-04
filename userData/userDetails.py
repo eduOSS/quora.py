@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import urllib2
+import json
 from bs4 import BeautifulSoup
 
 def getTopicName(topic):
@@ -62,13 +63,6 @@ def getUserDetails(username):
                        'following' : str(stats[4].text),
                        'edits'     : str(stats[5].text)
                        }
-        return userDetails
+        return json.loads(json.dumps(userDetails, sort_keys=True, separators=(',',':')))
     except:
-        print "Username Not Found"
-
-if __name__ == '__main__':
-    username = raw_input("Enter Username : ")
-    userDetails = getUserDetails(username)
-    if userDetails is not None:
-        for detail in userDetails:
-            print detail + " : " + userDetails[detail]
+        return None
